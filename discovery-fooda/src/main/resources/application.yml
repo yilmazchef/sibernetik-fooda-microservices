@@ -1,0 +1,25 @@
+server:
+  port: 9000
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: sibernetik-123
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+
+spring:
+  application:
+    name: discovery-b
+
+  output:
+    ansi:
+      enabled: DETECT
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://localhost:9000/eureka/"
+    registerWithEureka: false
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+

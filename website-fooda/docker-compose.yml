@@ -1,0 +1,97 @@
+version: '3.7'
+
+services:
+
+    ########################################################################################################################################################
+
+    ### fooda Wordpress Docker composition settings for ui-fooda and db-fooda ###
+
+    ########################################################################################################################################################
+    
+    ui-fooda:
+        image: docker.io/yilmazchef/ui-fooda:latest
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        container_name: ui-fooda
+        ports:
+            - "8888:80"
+        depends_on:
+            - db-fooda
+        environment:
+            WORDPRESS_DB_HOST: db-fooda
+            WORDPRESS_DB_USER: fooda
+            WORDPRESS_DB_PASSWORD: fooda
+            WORDPRESS_DB_NAME: fooda
+        volumes:
+            - disk-ui:/var/www/html
+        networks:
+            - fooda-net
+            - cloud-net
+
+
+    db-fooda:
+        image: docker.io/yilmazchef/db-fooda:latest
+        container_name: db-fooda
+        restart: unless-stopped
+        ports:
+            - "3333:3306"
+        environment:
+            MYSQL_DATABASE: fooda
+            MYSQL_USER: fooda
+            MYSQL_PASSWORD: fooda
+            MYSQL_ROOT_PASSWORD: fooda
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_RANDOM_ROOT_PASSWORD: "no"
+            MYSQL_ONETIME_PASSWORD: "no"
+            MYSQL_INITDB_SKIP_TZINFO: "no"
+        volumes:
+            - disk-db:/var/lib/mysql/
+        networks:
+            - fooda-net
+            - cloud-net
+    
+    dba-fooda:
+        image: docker.io/yilmazchef/dba-fooda:latest
+        container_name: dba-fooda
+        restart: unless-stopped
+        depends_on:
+            db-fooda:
+                condition: service_started
+        environment:
+            ADMINER_DB: fooda
+            ADMINER_DRIVER: mysql
+            ADMINER_PASSWORD: fooda
+            ADMINER_SERVER: db-fooda
+            ADMINER_USERNAME: fooda
+            ADMINER_AUTOLOGIN: 1
+            ADMINER_NAME: DB Admin for fooda
+        ports:
+            - "9999:8080"
+        networks:
+            - fooda-net
+            - cloud-net
+
+
+###############################################################################################
+
+### Networks to be created to facilitate communication between containers ###
+
+###############################################################################################
+
+networks:
+    cloud-net:
+        driver: bridge
+    fooda-net:
+
+###############################################################################################
+
+### Volumes to be created to facilitate to share resources between containers ###
+
+###############################################################################################
+
+volumes:
+    disk-ui:
+    disk-db:
+
