@@ -15,12 +15,13 @@ public class ProductLayout extends VerticalLayout{
     
     public ProductLayout(Map<String, Object> p){
 
+        initStyle();
+
         HorizontalLayout productLayout = new HorizontalLayout();
         productLayout.setMargin(false);
         productLayout.setPadding(false);
         productLayout.setSpacing(false);
         productLayout.setWidthFull();
-        productLayout.setMaxHeight(200, Unit.PIXELS);
         productLayout.setMaxWidth(250, Unit.PIXELS);
 
         VerticalLayout leftLayout = new VerticalLayout();
@@ -41,7 +42,9 @@ public class ProductLayout extends VerticalLayout{
         String imageUrl = imageList.get(0).get("src").toString();
 
         Image imgComp = new Image(imageUrl, productName);
-        imgComp.setMaxHeight(200, Unit.PIXELS);
+        imgComp.getStyle().set("object-fit", "cover");
+        imgComp.setMaxWidth(250, Unit.PIXELS);
+        imgComp.setHeightFull();
         Span nameComp = new Span(productName);
         
         leftLayout.add(imgComp);
@@ -55,6 +58,12 @@ public class ProductLayout extends VerticalLayout{
         );
 
         add(productLayout);
+    }
+
+    public void initStyle(){
+        setMargin(false);
+        setPadding(false);
+        setSpacing(false);
     }
 
 }
