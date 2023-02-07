@@ -34,6 +34,7 @@ import com.vaadin.flow.server.PWA;
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 @StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
 @StyleSheet("https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css")
+@CssImport("./shared/style.css")
 @PWA(
     name = "Fooda PWA (Progressive Web App)", 
     shortName = "Fooda" 
