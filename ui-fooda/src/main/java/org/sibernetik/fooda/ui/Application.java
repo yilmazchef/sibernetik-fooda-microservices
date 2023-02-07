@@ -18,6 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 
+import com.vaadin.flow.server.PWA;
 
 /**
  * The entry point of the Spring Boot application.
@@ -33,6 +34,10 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 @StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
 @StyleSheet("https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css")
+@PWA(
+    name = "Fooda PWA (Progressive Web App)", 
+    shortName = "Fooda" 
+)
 public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {
