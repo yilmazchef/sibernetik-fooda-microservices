@@ -1859,7 +1859,8 @@ services:
         restart: unless-stopped
         container_name: ui-{0}
         ports:
-            - "8888:80"
+            - "80:80"
+            - "443:443"
         depends_on:
             - db-{0}
         environment:
@@ -1879,7 +1880,7 @@ services:
         container_name: db-{0}
         restart: unless-stopped
         ports:
-            - "3333:3306"
+            - "3306:3306"
         environment:
             MYSQL_DATABASE: {0}
             MYSQL_USER: {0}
@@ -1900,8 +1901,7 @@ services:
         container_name: dba-{0}
         restart: unless-stopped
         depends_on:
-            db-{0}:
-                condition: service_started
+            db-{0}
         environment:
             ADMINER_DB: {0}
             ADMINER_DRIVER: mysql
@@ -1911,7 +1911,7 @@ services:
             ADMINER_AUTOLOGIN: 1
             ADMINER_NAME: DB Admin for {0}
         ports:
-            - "9999:8080"
+            - "6033:8080"
         networks:
             - {0}-net
             - cloud-net
@@ -2092,7 +2092,7 @@ services:
     image: wordpress
     restart: always
     ports:
-      - "8888:80"
+      - "80:80"
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser
