@@ -1,14 +1,14 @@
 package org.sibernetik.fooda.ui.views.products;
 
-import java.util.List;
-import java.util.Map;
-
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import java.util.List;
+import java.util.Map;
 
 @Tag("fooda-product-layout")
 public class ProductLayout extends VerticalLayout{
@@ -64,6 +64,11 @@ public class ProductLayout extends VerticalLayout{
         setMargin(false);
         setPadding(false);
         setSpacing(false);
+
+        getStyle()
+                .set("flex", "0 1 24%")
+                .set("box-sizing", "border-box")
+                .set("margin", "1rem .25em");
     }
 
 }

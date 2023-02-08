@@ -4,45 +4,45 @@ services:
 
     ########################################################################################################################################################
 
-    ### fooda Wordpress Docker composition settings for ui-fooda and db-fooda ###
+    ### resta Wordpress Docker composition settings for ui-resta and db-resta ###
 
     ########################################################################################################################################################
     
-    ui-fooda:
-        image: docker.io/yilmazchef/ui-fooda:latest
+    ui-resta:
+        image: docker.io/yilmazchef/ui-resta:latest
         build: 
             context: .
             dockerfile: Dockerfile
         restart: unless-stopped
-        container_name: ui-fooda
+        container_name: ui-resta
         ports:
             - "80:80"
             - "443:443"
         depends_on:
-            - db-fooda
+            - db-resta
         environment:
-            WORDPRESS_DB_HOST: db-fooda
-            WORDPRESS_DB_USER: fooda
-            WORDPRESS_DB_PASSWORD: fooda
-            WORDPRESS_DB_NAME: fooda
+            WORDPRESS_DB_HOST: db-resta
+            WORDPRESS_DB_USER: resta
+            WORDPRESS_DB_PASSWORD: resta
+            WORDPRESS_DB_NAME: resta
         volumes:
             - disk-ui:/var/www/html
         networks:
-            - fooda-net
+            - resta-net
             - cloud-net
 
 
-    db-fooda:
-        image: docker.io/yilmazchef/db-fooda:latest
-        container_name: db-fooda
+    db-resta:
+        image: docker.io/yilmazchef/db-resta:latest
+        container_name: db-resta
         restart: unless-stopped
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: fooda
-            MYSQL_USER: fooda
-            MYSQL_PASSWORD: fooda
-            MYSQL_ROOT_PASSWORD: fooda
+            MYSQL_DATABASE: resta
+            MYSQL_USER: resta
+            MYSQL_PASSWORD: resta
+            MYSQL_ROOT_PASSWORD: resta
             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
             MYSQL_RANDOM_ROOT_PASSWORD: "no"
             MYSQL_ONETIME_PASSWORD: "no"
@@ -50,27 +50,27 @@ services:
         volumes:
             - disk-db:/var/lib/mysql/
         networks:
-            - fooda-net
+            - resta-net
             - cloud-net
     
-    dba-fooda:
-        image: docker.io/yilmazchef/dba-fooda:latest
-        container_name: dba-fooda
+    dba-resta:
+        image: docker.io/yilmazchef/dba-resta:latest
+        container_name: dba-resta
         restart: unless-stopped
         depends_on:
-            - db-fooda
+            - db-resta
         environment:
-            ADMINER_DB: fooda
+            ADMINER_DB: resta
             ADMINER_DRIVER: mysql
-            ADMINER_PASSWORD: fooda
-            ADMINER_SERVER: db-fooda
-            ADMINER_USERNAME: fooda
+            ADMINER_PASSWORD: resta
+            ADMINER_SERVER: db-resta
+            ADMINER_USERNAME: resta
             ADMINER_AUTOLOGIN: 1
-            ADMINER_NAME: DB Admin for fooda
+            ADMINER_NAME: DB Admin for resta
         ports:
             - "6033:8080"
         networks:
-            - fooda-net
+            - resta-net
             - cloud-net
 
 
@@ -83,7 +83,7 @@ services:
 networks:
     cloud-net:
         driver: bridge
-    fooda-net:
+    resta-net:
 
 ###############################################################################################
 

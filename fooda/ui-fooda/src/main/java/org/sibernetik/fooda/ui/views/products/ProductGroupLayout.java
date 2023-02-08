@@ -3,10 +3,10 @@ package org.sibernetik.fooda.ui.views.products;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @Tag("fooda-product-group-layout")
 public class ProductGroupLayout extends VerticalLayout {
@@ -15,9 +15,9 @@ public class ProductGroupLayout extends VerticalLayout {
 
         initStyle();
 
-        Integer productsCount = products.size();
+        int productsCount = products.size();
 
-        if(!products.isEmpty() && products.size() > 0){
+        if(!products.isEmpty()){
 
             UI.getCurrent().getPage().retrieveExtendedClientDetails(receiver -> {
                 int screenWidth = receiver.getScreenWidth();
@@ -58,6 +58,11 @@ public class ProductGroupLayout extends VerticalLayout {
         setMargin(true);
         setPadding(true);
         setSpacing(false);
+
+        getStyle()
+                .set("display", "flex")
+                .set("flex-wrap", "wrap")
+                .set("justify-content","space-between");
     }
 
 }
